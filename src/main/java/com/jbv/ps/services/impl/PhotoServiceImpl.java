@@ -1,4 +1,4 @@
-package com.jbv.ps.services;
+package com.jbv.ps.services.impl;
 
 import com.jbv.ps.models.PhotoDto;
 import com.jbv.ps.services.contracts.PhotoService;

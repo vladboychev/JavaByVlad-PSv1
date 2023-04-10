@@ -15,8 +15,6 @@ public class PhotoDto {
     private String title;
     private String story;
     private String path;
-    private ContestDto contestDto;
-    private UserDto author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

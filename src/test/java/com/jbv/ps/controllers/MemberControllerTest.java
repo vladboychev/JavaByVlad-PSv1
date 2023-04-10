@@ -1,9 +1,9 @@
 package com.jbv.ps.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jbv.ps.models.UserDto;
-import com.jbv.ps.services.contracts.UserService;
-import com.jbv.ps.services.UserServiceImpl;
+import com.jbv.ps.models.MemberDto;
+import com.jbv.ps.services.contracts.MemberService;
+import com.jbv.ps.services.impl.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -27,8 +27,8 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(UserController.class)
-class UserControllerTest {
+@WebMvcTest(MemberController.class)
+class MemberControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -37,26 +37,26 @@ class UserControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    UserService userService;
+    MemberService memberService;
 
-    UserServiceImpl userServiceImpl;
+    MemberServiceImpl userServiceImpl;
 
     @Captor
     ArgumentCaptor<UUID> uuidArgumentCaptor;
 
     @Captor
-    ArgumentCaptor<UserDto> userArgumentCaptor;
+    ArgumentCaptor<MemberDto> userArgumentCaptor;
 
     @BeforeEach
     void setUp() {
-        userServiceImpl = new UserServiceImpl();
+        userServiceImpl = new MemberServiceImpl();
     }
 
     @Test
     void testListUsers() throws Exception {
-        given(userService.listUsers()).willReturn(userServiceImpl.listUsers());
+        given(memberService.listUsers()).willReturn(userServiceImpl.listUsers());
 
-        mockMvc.perform(get(UserController.PATH_TO_USERS)
+        mockMvc.perform(get(MemberController.PATH_TO_USERS)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -65,84 +65,84 @@ class UserControllerTest {
 
     @Test
     void getUserById() throws Exception {
-        UserDto testUserDto = userServiceImpl.listUsers().get(0);
+        MemberDto testMemberDto = userServiceImpl.listUsers().get(0);
 
-        given(userService.getUserById(testUserDto.getId())).willReturn(Optional.of(testUserDto));
+        given(memberService.getUserById(testMemberDto.getId())).willReturn(Optional.of(testMemberDto));
 
-        mockMvc.perform(get(UserController.PATH_TO_USERS_ID, testUserDto.getId())
+        mockMvc.perform(get(MemberController.PATH_TO_USERS_ID, testMemberDto.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(testUserDto.getId().toString())))
-                .andExpect(jsonPath("$.username", is(testUserDto.getUsername())));
+                .andExpect(jsonPath("$.id", is(testMemberDto.getId().toString())))
+                .andExpect(jsonPath("$.username", is(testMemberDto.getUsername())));
     }
 
     @Test
     void testGetUserByIdNotFound() throws Exception {
 
-        given(userService.getUserById(any(UUID.class))).willReturn(Optional.empty());
+        given(memberService.getUserById(any(UUID.class))).willReturn(Optional.empty());
 
-        mockMvc.perform(get(UserController.PATH_TO_USERS_ID, UUID.randomUUID()))
+        mockMvc.perform(get(MemberController.PATH_TO_USERS_ID, UUID.randomUUID()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void testCreateUser() throws Exception {
-        UserDto testUserDto = userServiceImpl.listUsers().get(0);
-        testUserDto.setId(null);
+        MemberDto testMemberDto = userServiceImpl.listUsers().get(0);
+        testMemberDto.setId(null);
 
-        given(userService.saveNewUser(any(UserDto.class))).willReturn(userServiceImpl.listUsers().get(1));
+        given(memberService.saveNewUser(any(MemberDto.class))).willReturn(userServiceImpl.listUsers().get(1));
 
-        mockMvc.perform(post(UserController.PATH_TO_USERS)
+        mockMvc.perform(post(MemberController.PATH_TO_USERS)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(testUserDto)))
+                .content(objectMapper.writeValueAsString(testMemberDto)))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
     }
 
     @Test
     void testUpdateUser() throws Exception {
-        UserDto testUserDto = userServiceImpl.listUsers().get(0);
+        MemberDto testMemberDto = userServiceImpl.listUsers().get(0);
 
-        mockMvc.perform(put(UserController.PATH_TO_USERS_ID, testUserDto.getId())
+        mockMvc.perform(put(MemberController.PATH_TO_USERS_ID, testMemberDto.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(testUserDto)))
+                .content(objectMapper.writeValueAsString(testMemberDto)))
                 .andExpect(status().isNoContent());
 
-        verify(userService).updateUserById(any(UUID.class), any(UserDto.class));
+        verify(memberService).updateUserById(any(UUID.class), any(MemberDto.class));
     }
 
     @Test
     void testDeleteUser() throws Exception {
-        UserDto testUserDto = userServiceImpl.listUsers().get(0);
+        MemberDto testMemberDto = userServiceImpl.listUsers().get(0);
 
-        mockMvc.perform(delete(UserController.PATH_TO_USERS_ID, testUserDto.getId())
+        mockMvc.perform(delete(MemberController.PATH_TO_USERS_ID, testMemberDto.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        verify(userService).deleteUserById(uuidArgumentCaptor.capture());
+        verify(memberService).deleteUserById(uuidArgumentCaptor.capture());
 
-        assertThat(testUserDto.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+        assertThat(testMemberDto.getId()).isEqualTo(uuidArgumentCaptor.getValue());
     }
 
     @Test
     void testPatchUser() throws Exception {
-        UserDto testUserDto = userServiceImpl.listUsers().get(0);
+        MemberDto testMemberDto = userServiceImpl.listUsers().get(0);
 
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("username", "What Name");
 
-        mockMvc.perform(patch(UserController.PATH_TO_USERS_ID, testUserDto.getId())
+        mockMvc.perform(patch(MemberController.PATH_TO_USERS_ID, testMemberDto.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userMap)))
                 .andExpect(status().isNoContent());
 
-        verify(userService).updateUserPatchById(uuidArgumentCaptor.capture(), userArgumentCaptor.capture());
+        verify(memberService).updateUserPatchById(uuidArgumentCaptor.capture(), userArgumentCaptor.capture());
 
-        assertThat(testUserDto.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+        assertThat(testMemberDto.getId()).isEqualTo(uuidArgumentCaptor.getValue());
         assertThat(userMap.get("username")).isEqualTo(userArgumentCaptor.getValue().getUsername());
     }
 }

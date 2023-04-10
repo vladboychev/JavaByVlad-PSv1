@@ -1,7 +1,5 @@
 package com.jbv.ps.domain;
 
-import com.jbv.ps.models.ContestDto;
-import com.jbv.ps.models.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +27,8 @@ public class Photo {
     private String title;
     private String story;
     private String path;
-    private ContestDto contestDto;
-    private UserDto author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    //    private ContestDto contest;
+//    private MemberDto author;
 }

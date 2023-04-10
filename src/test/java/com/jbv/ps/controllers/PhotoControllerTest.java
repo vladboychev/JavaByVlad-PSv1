@@ -3,7 +3,7 @@ package com.jbv.ps.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jbv.ps.models.PhotoDto;
 import com.jbv.ps.services.contracts.PhotoService;
-import com.jbv.ps.services.PhotoServiceImpl;
+import com.jbv.ps.services.impl.PhotoServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

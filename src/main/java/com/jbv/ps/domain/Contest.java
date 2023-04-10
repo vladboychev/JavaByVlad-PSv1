@@ -1,7 +1,7 @@
 package com.jbv.ps.domain;
 
+import com.jbv.ps.enums.ContestType;
 import com.jbv.ps.enums.Phase;
-import com.jbv.ps.models.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.swing.plaf.synth.ColorType;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -31,14 +29,14 @@ public class Contest {
     private Integer version;
     private String title;
     private String category;
-    private ColorType colorType;
+    private ContestType contestType;
     private Phase phase;
     private Period phaseOneLimit;
     private Period phaseTwoLimit;
     private String coverPhotoPath;
-    private UserDto organizer;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<UserDto> juryMembers;
-    private Set<UserDto> users;
+    //    private MemberDto organizer;
+//    private Set<MemberDto> juryMembers;
+//    private Set<MemberDto> users;
 }

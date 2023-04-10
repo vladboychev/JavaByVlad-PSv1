@@ -1,8 +1,5 @@
 package com.jbv.ps.domain;
 
-import com.jbv.ps.enums.Rating;
-import com.jbv.ps.enums.Role;
-import com.jbv.ps.models.ContestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -19,7 +15,7 @@ import java.util.UUID;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,13 +27,13 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private String firstName;
     private String lastName;
-    private Role role;
-    private Rating rating;
-    private Integer points;
-    private Set<ContestDto> juryContests;
-    private Set<ContestDto> participatedContests;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+//    private Role role;
+//    private Rating rating;
+//    private Integer points;
+//    private Set<ContestDto> juryContests;
+//    private Set<ContestDto> participatedContests;
 }

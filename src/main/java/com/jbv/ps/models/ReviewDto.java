@@ -15,8 +15,6 @@ public class ReviewDto {
     private Integer score;
     private String comment;
     private Boolean is_wrong_category;
-    private PhotoDto photoDto;
-    private UserDto juryMember;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

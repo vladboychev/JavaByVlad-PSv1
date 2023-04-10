@@ -1,5 +1,6 @@
 package com.jbv.ps.models;
 
+import com.jbv.ps.enums.ContestType;
 import com.jbv.ps.enums.Phase;
 import lombok.Builder;
 import lombok.Data;
@@ -18,14 +19,11 @@ public class ContestDto {
     private Integer version;
     private String title;
     private String category;
-    private ColorType colorType;
+    private ContestType contestType;
     private Phase phase;
     private Period phaseOneLimit;
     private Period phaseTwoLimit;
     private String coverPhotoPath;
-    private UserDto organizer;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<UserDto> juryMembers;
-    private Set<UserDto> users;
 }

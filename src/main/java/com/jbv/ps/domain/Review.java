@@ -1,7 +1,5 @@
 package com.jbv.ps.domain;
 
-import com.jbv.ps.models.PhotoDto;
-import com.jbv.ps.models.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +27,8 @@ public class Review {
     private Integer score;
     private String comment;
     private Boolean is_wrong_category;
-    private PhotoDto photoDto;
-    private UserDto juryMember;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    //    private PhotoDto photo;
+//    private MemberDto juryMember;
 }
