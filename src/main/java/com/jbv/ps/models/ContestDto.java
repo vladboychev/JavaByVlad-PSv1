@@ -12,9 +12,10 @@ import java.util.UUID;
 
 @Builder
 @Data
-public class Contest {
+public class ContestDto {
 
     private UUID id;
+    private Integer version;
     private String title;
     private String category;
     private ColorType colorType;
@@ -22,9 +23,9 @@ public class Contest {
     private Period phaseOneLimit;
     private Period phaseTwoLimit;
     private String coverPhotoPath;
-    private User organizer;
+    private UserDto organizer;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<User> juryMembers;
-    private Set<User> users;
+    private Set<UserDto> juryMembers;
+    private Set<UserDto> users;
 }

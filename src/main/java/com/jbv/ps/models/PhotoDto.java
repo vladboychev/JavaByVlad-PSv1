@@ -8,14 +8,15 @@ import java.util.UUID;
 
 @Builder
 @Data
-public class Review {
+public class PhotoDto {
 
     private UUID id;
-    private int score;
-    private String comment;
-    private boolean is_wrong_category;
-    private Photo photo;
-    private User juryMember;
+    private Integer version;
+    private String title;
+    private String story;
+    private String path;
+    private ContestDto contestDto;
+    private UserDto author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

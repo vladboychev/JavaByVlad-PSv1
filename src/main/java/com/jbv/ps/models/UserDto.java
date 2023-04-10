@@ -11,9 +11,10 @@ import java.util.UUID;
 
 @Builder
 @Data
-public class User{
+public class UserDto {
 
     private UUID id;
+    private Integer version;
     private String username;
     private String email;
     private String password;
@@ -23,7 +24,7 @@ public class User{
     private String lastName;
     private Role role;
     private Rating rating;
-    private int points;
-    private Set<Contest> juryContests;
-    private Set<Contest> participatedContests;
+    private Integer points;
+    private Set<ContestDto> juryContests;
+    private Set<ContestDto> participatedContests;
 }
